@@ -2,7 +2,7 @@ import elves from './input.json' assert { type: 'json' }
 
 //Part 1
 const totals = elves.map((elf) =>
-  elf.reduce((totalCals, snackCals) => totalCals + snackCals, 0)
+  elf.reduce((totalCals, snackCals) => totalCals + snackCals)
 )
 console.log(Math.max(...totals))
 
