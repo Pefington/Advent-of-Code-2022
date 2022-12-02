@@ -14,7 +14,9 @@ const outcomes = {
 }
 
 const scores = rounds.map((round) => outcomes[round])
-console.log(scores.reduce((totalScore, score) => totalScore + score))
+const part1 = `  Part 1: ${scores.reduce(
+  (totalScore, score) => totalScore + score
+)}`
 
 //Part 2
 //X lose, Y draw, Z win
@@ -31,4 +33,8 @@ const newOutcomes = {
 }
 
 const newScores = rounds.map((round) => newOutcomes[round])
-console.log(newScores.reduce((totalScore, score) => totalScore + score))
+const part2 = `  Part 2: ${newScores.reduce(
+  (totalScore, score) => totalScore + score
+)}`
+
+export default ['Day 02:', part1, part2]
