@@ -50,4 +50,4 @@ for (let i = 0, max = expandedLeft.length; i < max; i++) {
 const part1 = `  Part 1: ${overlapFully}`
 const part2 = `  Part 2: ${overlapAtAll}`
 
-export default ['Day 04:', part1, part2]
+export default [part1, part2]

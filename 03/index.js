@@ -44,4 +44,4 @@ for (let i = 0, length = rucksacks.length; i < length; i += 3) {
 const part1 = `  Part 1: ${prioritiesSum}`
 const part2 = `  Part 2: ${groupsSum}`
 
-export default ['Day 03:', part1, part2]
+export default [part1, part2]

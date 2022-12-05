@@ -37,4 +37,4 @@ const part2 = `  Part 2: ${newScores.reduce(
   (totalScore, score) => totalScore + score
 )}`
 
-export default ['Day 02:', part1, part2]
+export default [part1, part2]

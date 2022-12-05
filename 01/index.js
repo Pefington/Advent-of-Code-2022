@@ -14,4 +14,4 @@ const part2 = `  Part 2: ${totals
   .slice(0, 3)
   .reduce((totalCals, elfCals) => totalCals + elfCals)}`
 
-export default ['Day 01:', part1, part2]
+export default [part1, part2]
