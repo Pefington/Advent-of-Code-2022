@@ -34,6 +34,8 @@ const log = (...args) => console.log('\n', ...args, '\n\n', '-'.repeat(40))
 * With 16 trees visible on the edge and another 5 visible in the interior, a total of 21 trees are visible in this arrangement.
 
 * Consider your map; how many trees are visible from outside the grid?
+
+! Your puzzle answer was 1854.
 */
 
 let trees = input.map((row) => row.split(''))
@@ -94,8 +96,6 @@ for (let lat = 1; lat < rowsAmount - 1; lat++) {
 }
 
 log(visibleTrees)
-
-//! Your puzzle answer was 1854.
 
 /*
 ? --- Part Two ---
