@@ -22,7 +22,6 @@ const calculateFinalStrength = (strengths) => {
 const run1 = (instructions) => {
   let cycle = 0
   let x = 1
-  let strength = 0
   let strengths = []
 
   for (let instruction of instructions) {
@@ -45,6 +44,53 @@ const run1 = (instructions) => {
   return finalStrength
 }
 
-run1( instructions )
+// run1(instructions)
 
 //Part 2
+
+const run2 = (instructions) => {
+  let cycle = 1
+  let x = 1
+  let screen = []
+  let line = []
+
+  const cycleOne = (instruction) => {
+    let position = (cycle - 1) % 40
+    let sprite = '.'.repeat(40)
+
+    if (x === -1) {
+      sprite = '#' + '.'.repeat(39)
+    } else if (x === 0) {
+      sprite = '##' + '.'.repeat(38)
+    } else if (x > 0 && x < 39) {
+      sprite = '.'.repeat(x - 1) + '###' + '.'.repeat(39 - x)
+    } else if (x === 39) {
+      sprite = '.'.repeat(38) + '##'
+    } else if (x === 40) {
+      sprite = '.'.repeat(39) + '#'
+    }
+
+    line.push( sprite[position] )
+    console.log(`Cycle ${cycle}: ${instruction}`)
+    console.log(`Sprite position: ${sprite}\n`)
+    console.log(`CRT draws pixel in position ${position}`)
+    console.log(line.join(''))
+    if (position === 39) {
+      screen.push(line.join(''))
+      line = []
+      console.log(screen)
+    }
+    cycle += 1
+  }
+
+  for (let instruction of instructions) {
+    if (instruction[0] === 'addx') {
+      cycleOne(instruction)
+      cycleOne(instruction)
+      x += instruction[1]
+    } else cycleOne(instruction)
+  }
+  log(screen)
+}
+
+run2(instructions)
