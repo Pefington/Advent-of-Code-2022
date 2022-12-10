@@ -66,28 +66,29 @@ const run = (moves) => {
 //Part 2
 
 const moveHead = (head, direction) => {
+  let headCopy = JSON.parse(JSON.stringify(head))
   switch (direction) {
     case 'U':
-      head[1] += 1
+      headCopy[1] += 1
       break
     case 'D':
-      head[1] -= 1
+      headCopy[1] -= 1
       break
     case 'L':
-      head[0] -= 1
+      headCopy[0] -= 1
       break
     case 'R':
-      head[0] += 1
+      headCopy[0] += 1
       break
     default:
       throw new Error(`Invalid direction: ${direction}`)
   }
-  return head
+  return headCopy
 }
 
 const moveNext = (head, tail, direction) => {
-  let [headX, headY] = head
-  let [tailX, tailY] = tail
+  let [headX, headY] = JSON.parse(JSON.stringify(head))
+  let [tailX, tailY] = JSON.parse(JSON.stringify(tail))
 
   switch (direction) {
     case 'U':
@@ -122,22 +123,23 @@ const moveNext = (head, tail, direction) => {
 
 const run2 = (moves, length) => {
   let rope = new Array(length).fill([0, 0])
+  let tailPositions = []
 
   for (let move of moves) {
     const [direction, distance] = move
 
     for (let d = 0; d < distance; d++) {
-      moveHead(rope[length - 1], direction)
-      log(rope[length - 1])
-      log(rope)
+      rope[length - 1] = moveHead(rope[length - 1], direction)
 
-      // for ( let i = length - 1; i > 0; i -= 1 ) {
-      //   log(rope)
-      //   rope[i - 1] = moveNext( rope[i], rope[i - 1], direction )
-      //   log(rope)
-      // }
+      for (let i = length - 1; i > 0; i -= 1) {
+        rope[i - 1] = moveNext(rope[i], rope[i - 1], direction)
+        tailPositions.push( `${rope[0][0]}|${rope[0][1]}` )
+        log(tailPositions[tailPositions.length - 1])
+      }
     }
   }
+  // tailPositions = [...new Set(tailPositions)]
+  // log(tailPositions, tailPositions.length)
 }
 
-// run2(moves, 10)
+run2(moves, 10)
