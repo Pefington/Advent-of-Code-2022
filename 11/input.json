@@ -6,7 +6,6 @@
     "true": 6,
     "false": 4
   },
-
   {
     "items": [76, 97, 58, 72, 57, 92, 82],
     "operation": "item + 4",
@@ -14,7 +13,6 @@
     "true": 7,
     "false": 5
   },
-
   {
     "items": [90, 89, 96],
     "operation": "item * 5",
@@ -22,7 +20,6 @@
     "true": 5,
     "false": 1
   },
-
   {
     "items": [72, 63, 72, 99],
     "operation": "item * item",
@@ -30,9 +27,7 @@
     "true": 0,
     "false": 4
   },
-
   { "items": [65], "operation": "item + 1", "test": 2, "true": 6, "false": 2 },
-
   {
     "items": [97, 71],
     "operation": "item + 8",
@@ -40,7 +35,6 @@
     "true": 7,
     "false": 3
   },
-
   {
     "items": [83, 68, 88, 55, 87, 67],
     "operation": "item + 2",
@@ -48,7 +42,6 @@
     "true": 2,
     "false": 1
   },
-
   {
     "items": [64, 81, 50, 96, 82, 53, 62, 92],
     "operation": "item + 5",
