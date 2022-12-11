@@ -86,38 +86,30 @@ const moveHead = (head, direction) => {
   return headCopy
 }
 
-const moveNext = (head, tail, direction) => {
+const moveNext = (head, tail) => {
   let [headX, headY] = JSON.parse(JSON.stringify(head))
   let [tailX, tailY] = JSON.parse(JSON.stringify(tail))
 
-  switch (direction) {
-    case 'U':
-      if (Math.abs(tailY - headY) > 1) {
-        tailY = headY - 1
-        tailX = headX
-      }
-      break
-    case 'D':
-      if (Math.abs(tailY - headY) > 1) {
-        tailY = headY + 1
-        tailX = headX
-      }
-      break
-    case 'L':
-      if (Math.abs(tailX - headX) > 1) {
-        tailX = headX + 1
-        tailY = headY
-      }
-      break
-    case 'R':
-      if (Math.abs(headX - tailX) > 1) {
-        tailX = headX - 1
-        tailY = headY
-      }
-      break
-    default:
-      throw new Error(`Invalid direction: ${direction}`)
+  if (headY - tailY > 1) {
+    tailY = headY - 1
+    tailX = headX
   }
+
+  else if (tailY - headY > 1) {
+    tailY = headY + 1
+    tailX = headX
+  }
+
+  else if (headX - tailX > 1) {
+    tailX = headX - 1
+    tailY = headY
+  }
+
+  else if (tailX - headX > 1) {
+    tailX = headX + 1
+    tailY = headY
+  }
+
   return [tailX, tailY]
 }
 
@@ -132,14 +124,15 @@ const run2 = (moves, length) => {
       rope[length - 1] = moveHead(rope[length - 1], direction)
 
       for (let i = length - 1; i > 0; i -= 1) {
-        rope[i - 1] = moveNext(rope[i], rope[i - 1], direction)
-        tailPositions.push( `${rope[0][0]}|${rope[0][1]}` )
-        log(tailPositions[tailPositions.length - 1])
+        rope[i - 1] = moveNext( rope[i], rope[i - 1], direction )
+        tailPositions.push(`${rope[0][0]}|${rope[0][1]}`)
       }
     }
   }
-  // tailPositions = [...new Set(tailPositions)]
-  // log(tailPositions, tailPositions.length)
+  tailPositions = [...new Set(tailPositions)]
+  log(tailPositions, tailPositions.length)
 }
 
-run2(moves, 10)
+run2( moves, 10 )
+// 2660 wrong ??
+// Works fine with the example, but not with my input. I'm not sure what I'm doing wrong.
