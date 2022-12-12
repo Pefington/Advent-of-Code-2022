@@ -3,12 +3,16 @@ lockfileVersion: 5.4
 specifiers:
   '@babel/eslint-parser': ^7.19.1
   '@babel/plugin-syntax-import-assertions': ^7.20.0
+  cli-table: ^0.3.11
   eslint: ^7.32.0 || ^8.2.0
   eslint-config-airbnb-base: ^15.0.0
   eslint-config-node: ^4.1.0
   eslint-config-prettier: ^8.5.0
   eslint-plugin-import: ^2.25.2
   prettier: ^2.8.0
+
+dependencies:
+  cli-table: 0.3.11
 
 devDependencies:
   '@babel/eslint-parser': 7.19.1_ajivmgign6qnltueqq3ekylg5a
@@ -498,6 +502,13 @@ packages:
       supports-color: 7.2.0
     dev: true
 
+  /cli-table/0.3.11:
+    resolution: {integrity: sha512-IqLQi4lO0nIB4tcdTpN4LCB9FI3uqrJZK7RC515EnhZ6qBaglkIgICb1wjeAqpdoOabm1+SuQtkXIPdYC93jhQ==}
+    engines: {node: '>= 0.2.0'}
+    dependencies:
+      colors: 1.0.3
+    dev: false
+
   /color-convert/1.9.3:
     resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==}
     dependencies:
@@ -518,6 +529,11 @@ packages:
   /color-name/1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
     dev: true
+
+  /colors/1.0.3:
+    resolution: {integrity: sha512-pFGrxThWcWQ2MsAz6RtgeWe4NK2kUE1WfsrvvlctdII745EW9I0yflqhe7++M5LEc7bV2c/9/5zc8sFcpL0Drw==}
+    engines: {node: '>=0.1.90'}
+    dev: false
 
   /concat-map/0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
