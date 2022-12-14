@@ -7,8 +7,8 @@ extends:
 plugins:
   - prettier
 parserOptions:
-  requireConfigFile: false
   ecmaVersion: latest
   sourceType: module
 rules:
-  prettier/prettier: error
+  prettier/prettier:
+    - error
