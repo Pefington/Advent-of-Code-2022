@@ -34,17 +34,17 @@ function checkPair(x, y) {
   if (isArr(x) && isInt(y)) return checkPair(x, [y]);
 
   const max = Math.min(x.length, y.length);
-  for ( let i = 0; i < max; i += 1 ) {
-    const valid = checkPair( x[i], y[i] )
-    if (valid) return valid
+  for (let i = 0; i < max; i += 1) {
+    const valid = checkPair(x[i], y[i]);
+    if (valid) return valid;
   }
-  return x.length - y.length
+  return x.length - y.length;
 }
 
 function run1(lInput, rInput) {
   const validPairs = [];
   for (let i = 0, max = lInput.length; i < max; i += 1) {
-    if (checkPair( lInput[i], rInput[i] ) < 0) {
+    if (checkPair(lInput[i], rInput[i]) < 0) {
       validPairs.push(i + 1);
     }
   }
@@ -53,4 +53,19 @@ function run1(lInput, rInput) {
   return res;
 }
 
-run1(left, right);
+// run1( left, right );
+
+// Part 2
+function run2(array) {
+  const fullInput = [];
+  array.forEach((line) => fullInput.push(JSON.parse(line)));
+
+  fullInput.push([[2]], [[6]]);
+  fullInput.sort((a, b) => checkPair(a, b));
+
+  const stringInput = [];
+  fullInput.forEach((line) => stringInput.push(JSON.stringify(line)));
+  log((stringInput.indexOf('[[2]]') + 1) * (stringInput.indexOf('[[6]]') + 1));
+}
+
+run2(input);
