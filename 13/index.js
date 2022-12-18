@@ -12,7 +12,7 @@ const raw = fs.readFileSync('./input.txt', 'utf8').split('---');
 const example = raw[0].split('\n').filter(Boolean);
 const actual = raw[1].split('\n').filter(Boolean);
 
-const input = example; // * Switch when ready
+const input = actual; // * Switch when ready
 
 const left = [];
 const right = [];
@@ -25,20 +25,28 @@ input.forEach((line, index) => {
   }
 });
 
-function checkPair(lVal, rVal) {
-  return true;
+const isInt = (el) => typeof el === 'number';
+const isArr = (el) => Array.isArray(el);
+
+function checkPair(x, y) {
+  if (isInt(x) && isInt(y)) return x - y;
+  if (isInt(x) && isArr(y)) return checkPair([x], y);
+  if (isArr(x) && isInt(y)) return checkPair(x, [y]);
+
+  const max = Math.min(x.length, y.length);
+  for ( let i = 0; i < max; i += 1 ) {
+    const valid = checkPair( x[i], y[i] )
+    if (valid) return valid
+  }
+  return x.length - y.length
 }
 
 function run1(lInput, rInput) {
   const validPairs = [];
   for (let i = 0, max = lInput.length; i < max; i += 1) {
-    console.log(`\n== Pair ${i + 1} ==`);
-    console.log('- Compare', lInput[i], 'vs', rInput[i]);
-    if (checkPair(lInput[i], rInput[i])) {
-      console.log('GOTTEM!!!');
+    if (checkPair( lInput[i], rInput[i] ) < 0) {
       validPairs.push(i + 1);
     }
-    log(validPairs);
   }
   const res = validPairs.reduce((sum, i) => sum + i);
   log(res);
