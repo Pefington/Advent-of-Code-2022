@@ -9,3 +9,7 @@ plugins:
 parserOptions:
   ecmaVersion: latest
   sourceType: module
+rules:
+  no-unused-vars: warn
+  no-empty: warn
+  prefer-const: warn
