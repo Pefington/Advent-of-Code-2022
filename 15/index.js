@@ -1,10 +1,5 @@
-import { clear } from 'console';
 import fs from 'fs';
 import util from 'util';
-
-const inspect = (obj) =>
-  console.log(util.inspect(obj, false, null, true /* enable colors */));
-const log = (...args) => console.log('\n', ...args, '\n\n', '-'.repeat(40));
 
 // Part 1
 let raw = fs
@@ -14,7 +9,7 @@ let raw = fs
 
 const [example, actual] = raw;
 
-let input = example.map((line) =>
+let input = actual.map((line) =>
   line
     .split(' ')
     .filter((arr) => arr.includes('='))
@@ -26,30 +21,24 @@ let input = example.map((line) =>
     )
 );
 
-function draw(data) {
-  let [yMin, yMax] = [0, 0];
-  let [xMin, xMax] = [0, 0];
-
+function count(data, targetY) {
+  let targetLine = new Set()
   data.forEach((line) => {
-    yMin = Math.min(yMin, line[1], line[3]);
-    yMax = Math.max(yMax, line[1], line[3]);
-    xMin = Math.min(xMin, line[0], line[2]);
-    xMax = Math.max(xMax, line[0], line[2]);
+    const [x, y, xB, yB] = [...line.map((str) => parseInt(str, 10))];
+    const distance = Math.abs(yB - y) + Math.abs(xB - x);
+
+    if (
+      (y <= targetY && y + distance >= targetY) ||
+      (y >= targetY && y - distance <= targetY)
+    ) {
+      const xSpread = Math.abs( distance - Math.abs( targetY - y ) );
+      const [minSpread, maxSpread] = [x - xSpread, x + xSpread]
+      for ( let val = minSpread; val <= maxSpread; val += 1 ) {
+        if (!(yB === targetY && val === xB)) targetLine.add( val )
+      }
+    }
   });
-
-  const yLength = yMax - yMin + 1;
-  const xLength = xMax - xMin + 1;
-
-  let grid = JSON.parse(JSON.stringify(Array(yLength).fill(Array(xLength).fill('.'))));
-
-  data.forEach( line => {
-    const [xS, yS, xB, yB] = [...line]
-    grid[yS - yMin][xS - xMin] = 'S'
-    grid[yB - yMin][xB - xMin] = 'B'
-    // - ..Min offsets the coordinates to account for negative values
-  })
-
-  log(grid.map((line) => line.join('')));
+  console.log(targetLine.size)
 }
 
-draw(input);
+count(input, 2000000);
