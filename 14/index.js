@@ -1,3 +1,4 @@
+import { clear } from 'console';
 import fs from 'fs';
 import util from 'util';
 
@@ -6,7 +7,7 @@ const inspect = (obj) =>
 const log = (...args) => console.log('\n', ...args, '\n\n', '-'.repeat(40));
 const draw = (grid) => {
   grid.forEach((arr) => console.log(arr.join('')));
-  log('\n'.repeat(18));
+  console.log('\n'.repeat(22));
 };
 
 // Part 1
@@ -30,11 +31,11 @@ const input = actual; // * Switch when ready
 
 const yVals = [];
 input.forEach((line) => line.forEach((pair) => yVals.push(pair[1])));
-const yLength = Math.max(...yVals) + 1;
+let yLength = Math.max(...yVals) + 1;
 
 const xVals = [];
 input.forEach((line) => line.forEach((pair) => xVals.push(pair[0])));
-const xLength = Math.max(...xVals) - Math.min(...xVals) + 1;
+let xLength = Math.max(...xVals) - Math.min(...xVals) + 1;
 const xOffset = Math.min(...xVals);
 
 const grid = JSON.parse(
@@ -62,13 +63,13 @@ input.forEach((line) => {
     }
   }
 });
-const emitter = 500 - xOffset;
-grid[0][emitter] = '+';
 
 // log(yLength, xLength);
 // draw(grid);
+let emitter = 500 - xOffset;
 
 function run1() {
+  grid[0][emitter] = '+';
   let full = false;
   let atRest = 0;
 
@@ -77,7 +78,6 @@ function run1() {
     let x = emitter;
     let rest = false;
     while (!rest) {
-      console.log(yLength, xLength, y, x);
       if (y + 1 === yLength) {
         grid[y][x] = '.';
         full = true;
@@ -109,45 +109,56 @@ function run1() {
       grid[0][emitter] = '+';
       // draw(grid);
     }
+    draw(grid);
   }
   grid[0][emitter] = '+';
-  draw(grid);
   log(atRest);
 }
 
 // run1()
 
-// Part 2
+// ! Part 2
+grid.push(Array(xLength).fill('.'));
+grid.push(Array(xLength).fill('.'));
+grid.unshift(Array(xLength).fill('.'));
+grid.unshift(Array(xLength).fill('.'));
+
+grid.forEach((line) => {
+  emitter = 500 - xOffset;
+  while (line.length < yLength * 3) {
+    line.push('.');
+    line.unshift('.');
+    emitter += 1;
+  }
+});
+
+xLength = grid[0].length;
+yLength = grid.length;
+
+for (let i = 0; i < xLength; i += 1) grid[yLength - 1][i] = '#';
+
+// draw(grid);
+// log(emitter)
+
 function run2() {
+  grid[0][emitter] = '+';
   let full = false;
   let atRest = 0;
 
-  grid
+  // draw(grid);
 
   while (!full) {
     let y = 0;
     let x = emitter;
     let rest = false;
     while (!rest) {
-      if (y + 1 === yLength) {
-        grid[y][x] = '.';
-        full = true;
-        break;
-      } else if (grid[y + 1][x] === '.') {
+      if (grid[y + 1][x] === '.') {
         grid[y][x] = '.';
         grid[y + 1][x] = 'o';
-      } else if (x === 0) {
-        grid[y][x] = '.';
-        full = true;
-        break;
       } else if (grid[y + 1][x - 1] === '.') {
         grid[y][x] = '.';
         grid[y + 1][x - 1] = 'o';
         x -= 1;
-      } else if (x === xLength - 1) {
-        grid[y][x] = '.';
-        full = true;
-        break;
       } else if (grid[y + 1][x + 1] === '.') {
         grid[y][x] = '.';
         grid[y + 1][x + 1] = 'o';
@@ -155,19 +166,14 @@ function run2() {
       } else {
         rest = true;
         atRest += 1;
+        if (grid[2][emitter] === 'o') full = true;
       }
       y += 1;
-      grid[0][emitter] = '+';
-      // draw(grid);
     }
   }
-  grid[0][emitter] = '+';
+  console.clear();
   draw(grid);
   log(atRest);
 }
 
-// run2()
-
-let arr = []
-arr[-1] = 1
-log(arr)
+run2();
